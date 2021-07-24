@@ -1,3 +1,13 @@
+variable "virt_url" {
+  description = "URL of the virtualization environment"
+  type        = string
+}
+
+variable "virt_password" {
+  description = "Password of the virtualization environment"
+  type        = string
+}
+
 variable "fqdn" {
   description = "Fully qualified name of the Gitlab instance"
   type        = string
@@ -6,7 +16,7 @@ variable "fqdn" {
 
 variable "size" {
   type    = string
-  default = "L"
+  default = "S"
 
   validation {
     condition     = contains(["S", "L"], var.size)
