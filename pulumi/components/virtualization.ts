@@ -22,7 +22,7 @@ class Virtualization extends pulumi.ComponentResource {
       name: "bespinian/awesome-image:1.0.0",
     });
 
-    let url = "";
+    let urls = [];
 
     for (var i = 0; i < count; i++) {
       let host = new docker.Container(`${name}-${i}` + i, {
@@ -30,10 +30,10 @@ class Virtualization extends pulumi.ComponentResource {
         ports: [{ external: 8080 + i, internal: 8080 }],
         envs: [`APP_TITLE=${name}-${i}`],
       });
-      url += host.id;
+      urls.push(host.id);
     }
 
-    this.url = pulumi.interpolate`${url}`;
+    this.url = pulumi.all(urls).apply((urls) => urls.join(","));
     this.registerOutputs({ url: this.url });
   }
 }
