@@ -20,5 +20,5 @@ const virtualization = new virt.Virtualization("virtualization", virtSize, {});
 const gitlab = new gl.Gitlab(
   "gitlab",
   <gl.GitlabArgs>{ size: gitlabSize, virtUrl: virtualization.url },
-  { dependsOn: [virtualization] }
+  {}
 );
